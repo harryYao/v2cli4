@@ -1,8 +1,9 @@
 
 # 配置 proxy 代理解决跨域问题
 
-> vue文档地址 https://cli.vuejs.org/zh/config/#devserver-proxy
-> 完整选项文档地址（http-proxy-middleware） https://github.com/chimurai/http-proxy-middleware#proxycontext-config
+> vue文档地址 https://cli.vuejs.org/zh/config/#devserver-proxy   
+> 完整选项文档地址（http-proxy-middleware） https://github.com/chimurai/http-proxy-middleware#proxycontext-config   
+> 也可以查看 ./node_modules/http-proxy-middleware/readme.md
 
 ```
 module.exports = {
