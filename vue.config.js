@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const path = require('path');
+const resolve = (dir) => path.join(__dirname, dir);
 
 const IS_PROD = ["production", "prod"].includes(process.env.NODE_ENV);
 
@@ -11,5 +12,18 @@ module.exports = {
   runtimeCompiler: true, // 是否使用包含运行时编译器的 Vue 构建版本
   productionSourceMap: !IS_PROD, // 生产环境的 source map
   parallel: require("os").cpus().length > 1, // 该选项在系统的 CPU 有多于一个内核时自动启用，仅作用于生产构建。
-  pwa: {} // 向 PWA 插件传递选项。
+  pwa: {}, // 向 PWA 插件传递选项。
+
+
+  chainWebpack: config => {
+    // 添加别名
+    config.resolve.alias
+      .set("vue$", "vue/dist/vue.esm.js")
+      .set('@$', resolve('src'))
+      .set('assets', resolve('src/assets'))
+      .set('components', resolve('src/components'))
+      .set('layout', resolve('src/layout'))
+      .set('base', resolve('src/base'))
+      .set('static', resolve('src/static'));
+  }
 }
