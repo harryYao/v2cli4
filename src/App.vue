@@ -6,16 +6,19 @@
       <legend>template中使用环境变量</legend>
       <div>API: {{ api }}</div>
     </fieldset>
+    <show-img></show-img>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import ShowImg from './components/ShowImg.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    ShowImg
   },
   data() {
     return {
