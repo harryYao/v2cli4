@@ -14,7 +14,42 @@ module.exports = {
   parallel: require("os").cpus().length > 1, // 该选项在系统的 CPU 有多于一个内核时自动启用，仅作用于生产构建。
   pwa: {}, // 向 PWA 插件传递选项。
 
-
+  configureWebpack: config => {
+    if (IS_PROD) {
+      config.optimization = {
+        splitChunks: {
+          cacheGroups: {
+            common: {
+              name: "chunk-common",
+              chunks: "initial",
+              minChunks: 2,
+              maxInitialRequests: 5,
+              minSize: 0,
+              priority: 1,
+              reuseExistingChunk: true,
+              enforce: true
+            },
+            vendors: {
+              name: "chunk-vendors",
+              test: /[\\/]node_modules[\\/]/,
+              chunks: "initial",
+              priority: 2,
+              reuseExistingChunk: true,
+              enforce: true
+            },
+            elementUI: {
+              name: "chunk-elementui",
+              test: /[\\/]node_modules[\\/]element-ui[\\/]/,
+              chunks: "all",
+              priority: 3,
+              reuseExistingChunk: true,
+              enforce: true
+            }
+          }
+        }
+      };
+    }
+  },
   chainWebpack: config => {
     // 添加别名
     config.resolve.alias
@@ -27,6 +62,8 @@ module.exports = {
       .set('static', resolve('src/static'));
 
     if (IS_PROD) {
+      config.optimization.delete("splitChunks");
+
       config.module
         .rule("images")
         .use("image-webpack-loader")

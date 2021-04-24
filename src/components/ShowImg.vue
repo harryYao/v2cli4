@@ -1,7 +1,11 @@
 <template>
-  <div>
-    <img alt="test img" :src="img1" >
-  </div>
+  <el-container>
+    <el-header>Header</el-header>
+    <el-main>Main
+      <img alt="test img" :src="img1" >
+      </el-main>
+    <el-footer>Footer</el-footer>
+  </el-container>
 </template>
 
 <script>
