@@ -13,7 +13,7 @@ module.exports = {
   productionSourceMap: !IS_PROD, // 生产环境的 source map
   parallel: require("os").cpus().length > 1, // 该选项在系统的 CPU 有多于一个内核时自动启用，仅作用于生产构建。
   pwa: {}, // 向 PWA 插件传递选项。
-
+  
   configureWebpack: config => {
     if (IS_PROD) {
       config.optimization = {
@@ -56,6 +56,7 @@ module.exports = {
       .set("vue$", "vue/dist/vue.esm.js")
       .set('@$', resolve('src'))
       .set('assets', resolve('src/assets'))
+      .set('@scss', resolve('src/assets/scss'))
       .set('components', resolve('src/components'))
       .set('layout', resolve('src/layout'))
       .set('base', resolve('src/base'))
@@ -76,7 +77,7 @@ module.exports = {
           // webp: { quality: 75 }
         });
     }
-    
+
     const svgRule = config.module.rule("svg");
     svgRule.uses.clear();
     svgRule.exclude.add(/node_modules/);
@@ -91,5 +92,20 @@ module.exports = {
     const imagesRule = config.module.rule("images");
     imagesRule.exclude.add(resolve("src/icons"));
     config.module.rule("images").test(/\.(png|jpe?g|gif|svg)(\?.*)?$/);
-  }
+  },
+  css: {
+    extract: IS_PROD,
+    sourceMap: false,
+    loaderOptions: {
+      scss: {
+        // 向全局sass样式传入共享的全局变量, $src可以配置图片cdn前缀
+        // 详情: https://cli.vuejs.org/guide/css.html#passing-options-to-pre-processor-loaders
+        prependData: `
+        @import "@scss/variables.scss";
+        @import "@scss/mixins.scss";
+        $src: "${process.env.VUE_APP_OSS_SRC}";
+        `
+      }
+    }
+  },
 }
