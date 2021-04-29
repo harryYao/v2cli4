@@ -1,6 +1,8 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <svg-icon iconClass="music"></svg-icon>
+    <svg-icon class="msg" iconClass="msg"></svg-icon>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -54,5 +56,10 @@ li {
 }
 a {
   color: #42b983;
+}
+.svg-icon {
+  margin: 20px;
+  font-size: 40px;
+  color: #345f6e;
 }
 </style>

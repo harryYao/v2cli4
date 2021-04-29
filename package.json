@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "dev": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "crm": "vue-cli-service build --mode crm",
@@ -21,6 +22,7 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "image-webpack-loader": "^7.0.1",
+    "svg-sprite-loader": "^6.0.6",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
